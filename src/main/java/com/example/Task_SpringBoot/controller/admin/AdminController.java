@@ -1,6 +1,7 @@
 package com.example.Task_SpringBoot.controller.admin;
 
 import com.example.Task_SpringBoot.dto.CommentDTO;
+import com.example.Task_SpringBoot.dto.ProjectDTO;
 import com.example.Task_SpringBoot.dto.TaskDTO;
 import com.example.Task_SpringBoot.services.admin.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,36 @@ public class AdminController {
     @GetMapping("/comments/{taskId}")
     public ResponseEntity<List<CommentDTO>> getCommentsByTaskId(@PathVariable Long taskId){
         return ResponseEntity.ok(adminService.getCommentsByTaskId(taskId));
+    }
+
+    @GetMapping("/projects")
+    public ResponseEntity<List<ProjectDTO>> getAllProjects() {
+        List<ProjectDTO> projects = adminService.getAllProjects();
+        return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
+
+    @GetMapping("project/{id}")
+    public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Long id) {
+        ProjectDTO project = adminService.getProjectById(id);
+        return new ResponseEntity<>(project, HttpStatus.OK);
+    }
+
+    @PostMapping("/project")
+    public ResponseEntity<ProjectDTO> createProject(@RequestBody ProjectDTO projectDTO) {
+        ProjectDTO createdProject = adminService.createProject(projectDTO);
+        return new ResponseEntity<>(createdProject, HttpStatus.CREATED);
+    }
+
+    @PutMapping("project/{id}")
+    public ResponseEntity<ProjectDTO> updateProject(@PathVariable Long id, @RequestBody ProjectDTO projectDTO) {
+        projectDTO.setId(id);
+        ProjectDTO updatedProject = adminService.updateProject(projectDTO);
+        return new ResponseEntity<>(updatedProject, HttpStatus.OK);
+    }
+    @DeleteMapping("/project/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        adminService.deleteProject(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

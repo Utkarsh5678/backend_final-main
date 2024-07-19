@@ -1,6 +1,7 @@
 package com.example.Task_SpringBoot.services.admin;
 
 import com.example.Task_SpringBoot.dto.CommentDTO;
+import com.example.Task_SpringBoot.dto.ProjectDTO;
 import com.example.Task_SpringBoot.dto.TaskDTO;
 import com.example.Task_SpringBoot.dto.UserDto;
 
@@ -25,5 +26,11 @@ public interface AdminService {
     CommentDTO createComment(Long taskId, String content);
 
     List<CommentDTO> getCommentsByTaskId(Long taskId);
+
+    List<ProjectDTO> getAllProjects();
+    ProjectDTO getProjectById(Long id);
+    ProjectDTO createProject(ProjectDTO projectDTO);
+    ProjectDTO updateProject(ProjectDTO projectDTO);
+    void deleteProject(Long id);
 
 }

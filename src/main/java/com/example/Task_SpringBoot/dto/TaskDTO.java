@@ -15,4 +15,5 @@ public class TaskDTO {
     private TaskStatus taskStatus;
     private Long employeeId;
     private String employeeName;
+    private Long projectId;
 }

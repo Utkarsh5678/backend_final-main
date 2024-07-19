@@ -21,11 +21,32 @@ public class Task {
     private Date dueDate;
     private String priority;
     private TaskStatus taskStatus;
+
     @ManyToOne(fetch=FetchType.LAZY,optional=false)
     @JoinColumn(name="user_id",nullable=false)
     @OnDelete(action= OnDeleteAction.CASCADE)
     @JsonIgnore
     private User user;
+
+    @ManyToOne(fetch=FetchType.LAZY,optional=false)
+    @JoinColumn(name="project_id",nullable=false)
+    @OnDelete(action= OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Project project;
+
+    // getters and setters
+
+    public Task(String title, String description, Date dueDate, String priority, TaskStatus taskStatus, User user, Project project) {
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+        this.taskStatus = taskStatus;
+        this.user = user;
+        this.project = project;
+    }
+
+    public Task() {}
 
     public TaskDTO getTaskDTO(){
         TaskDTO taskDto=new TaskDTO();
@@ -37,9 +58,11 @@ public class Task {
         taskDto.setTaskStatus(taskStatus);
         taskDto.setDueDate(dueDate);
         taskDto.setPriority(priority);
+        taskDto.setProjectId(project.getId());
+
         return taskDto;
     }
-
-
-
 }
+
+
+
